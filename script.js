@@ -28,11 +28,12 @@ function endGame() {
     isInGame = false;
     clicks = 0;
     score.innerHTML = clicks + '/' + MAX_CLICKS;
-    arret();
-    alert();
     console.log(sec_ + ':' + centi + mili + ' !');
     console.log(coords);
-    let send = confirm(sec_ + ':' + centi + mili + ' !' + "\nVoulez vous envoyer votre résultat pour faire des tests ?\nSeront inclus: date, heure, temps, dimensions de l'écran, système d'exploitation, positions de la souris durant la partie.")
+    let send = true;
+    // If the website is used from a file, didn't work with the fetch
+    if (window.location.protocol !== 'file:')
+        send = confirm(sec_ + ':' + centi + mili + ' !' + "\nVoulez vous envoyer votre résultat pour faire des tests ?\nSeront inclus: date, heure, temps, dimensions de l'écran, système d'exploitation, positions de la souris durant la partie.")
     let data = {
         date: Date.now(),
         width: window.innerWidth,
@@ -42,13 +43,13 @@ function endGame() {
         coords: coords,
         buttonPositions: buttonPositions
     };
-    fetch("https://merlode.pythonanywhere.com/upload_tipe", {
+    if(send) fetch("http://127.0.0.1:5000/upload_tipe", {
         method: "POST",
         body: JSON.stringify(data),
         headers: {
             "Content-type": "application/json; charset=UTF-8"
         }
-    });
+    }).then(r => r.json()).then(r => console.log(r));
 
     let text = JSON.stringify(data, null, 2);
     download(Date.now() + '.json', text);
