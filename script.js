@@ -35,6 +35,7 @@ function endGame() {
     if (window.location.protocol !== 'file:')
         send = confirm(sec_ + ':' + centi + mili + ' !' + "\nVoulez vous envoyer votre résultat pour faire des tests ?\nSeront inclus: date, heure, temps, dimensions de l'écran, système d'exploitation, positions de la souris durant la partie.")
     let data = {
+        bot: navigator.userAgent.includes('Python Bot'),
         date: Date.now(),
         width: window.innerWidth,
         height: window.innerHeight,
@@ -43,7 +44,7 @@ function endGame() {
         coords: coords,
         buttonPositions: buttonPositions
     };
-    if(send) fetch("https://merlode.pythonanywhere.com/upload_tipe", {
+    if(send) fetch("http://127.0.0.1:5000/upload_tipe", {
         method: "POST",
         body: JSON.stringify(data),
         headers: {
