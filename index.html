@@ -9,7 +9,6 @@
 <div class="rules" id="home">
   <h1>Le bouton fou</h1>
   <p>Cliquez sur le bouton pour le déplacer aléatoirement sur l'écran.</p>
-  <p>Si vous utilisez un bot pour le site, merci de bien rajouter "Python Bot" dans votre User-Agent</p>
   <button id="start">
     <span> Start Game </span>
   </button>
@@ -23,6 +22,20 @@
   <span>CLIQUER !!!</span>
 </button>
 
+<div id="modal" class="modal">
+    <div class="modal-content">
+        <div class="contact-form">
+            <h2>ERREUR : Mobile détecté</h2>
+            <p>
+              Vous avez actuellement un appareil mobile. Ce jeu doit uniquement s'effectuer avec une souris.<br>
+              Veuillez utiliser un ordinateur pour jouer.
+            </p>
+        </div>
+    </div>
+</div>
+
+<script src="detectmobilebrowser.js"></script>
 <script src="script.js"></script>
+
 </body>
 </html>
