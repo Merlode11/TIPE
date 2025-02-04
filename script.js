@@ -18,6 +18,7 @@ let afficher;
 let isInGame = false;
 let coords = [];
 let buttonPositions = [];
+let curves = [[]];
 let clicks = 0;
 
 function endGame() {
@@ -35,13 +36,15 @@ function endGame() {
     if (window.location.protocol !== 'file:')
         send = confirm(sec_ + ':' + centi + mili + ' !' + "\nVoulez vous envoyer votre résultat pour faire des tests ?\nSeront inclus: date, heure, temps, dimensions de l'écran, système d'exploitation, positions de la souris durant la partie.")
     let data = {
+        bot: navigator.userAgent.toLowerCase().includes('python bot'),
         date: Date.now(),
         width: window.innerWidth,
         height: window.innerHeight,
         os: window.navigator.oscpu,
         time: sec * 1000 + centi * 100 + mili,
         coords: coords,
-        buttonPositions: buttonPositions
+        buttonPositions: buttonPositions,
+        curves: curves
     };
     if(send) fetch("http://127.0.0.1:5000/upload_tipe", {
         method: "POST",
@@ -79,7 +82,14 @@ button.addEventListener('click', (event) => {
         date,
         isClick: true
     });
+    curves[clicks].push({
+        x,
+        y,
+        date,
+        isClick: true
+    })
     clicks++;
+    curves.push([]);
     score.innerHTML = clicks + '/' + MAX_CLICKS;
     if (clicks >= MAX_CLICKS) {
         endGame();
@@ -112,12 +122,12 @@ startButton.addEventListener('click', () => {
 window.addEventListener('mousemove', (event) => {
     if (isInGame) {
         let [x, y] = [event.clientX, event.clientY];
-        console.log({
+        coords.push({
             x,
             y,
             date
         });
-        coords.push({
+        curves[clicks].push({
             x,
             y,
             date
@@ -135,6 +145,12 @@ window.addEventListener("click", (event) => {
             date,
             isClick: true
         });
+        curves[clicks].push({
+            x,
+            y,
+            date,
+            isClick: true
+        })
         date = Date.now();
     }
 });
