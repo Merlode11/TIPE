@@ -55,7 +55,7 @@ function endGame() {
     }).then(r => r.json()).then(r => console.log(r));
 
     let text = JSON.stringify(data, null, 2);
-    download(Date.now() + '.json', text);
+    if(!send) download(Date.now() + '.json', text);
     coords = [];
     buttonPositions = [];
     raz();
