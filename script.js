@@ -46,7 +46,7 @@ function endGame() {
         buttonPositions: buttonPositions,
         curves: curves
     };
-    if(send) fetch("http://127.0.0.1:5000/upload_tipe", {
+    if(send) fetch("https://merlode.pythonanywhere.com/upload_tipe", {
         method: "POST",
         body: JSON.stringify(data),
         headers: {
