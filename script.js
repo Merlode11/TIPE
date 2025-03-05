@@ -59,6 +59,7 @@ function endGame() {
     coords = [];
     buttonPositions = [];
     raz();
+    arret();
 }
 
 button.addEventListener('click', (event) => {
