@@ -5,6 +5,7 @@ const homeContainer = document.getElementById('home');
 const scoreContainer = document.getElementById('scoring');
 const score = document.getElementById('score');
 const timer = document.getElementById('time');
+const best = document.getElementById('best');
 
 const MAX_CLICKS = 10;
 
@@ -46,7 +47,7 @@ function endGame() {
         buttonPositions: buttonPositions,
         curves: curves
     };
-    if(send) fetch("https://merlode.pythonanywhere.com/upload_tipe", {
+    if (send) fetch("https://merlode.pythonanywhere.com/upload_tipe", {
         method: "POST",
         body: JSON.stringify(data),
         headers: {
@@ -55,11 +56,12 @@ function endGame() {
     }).then(r => r.json()).then(r => console.log(r));
 
     let text = JSON.stringify(data, null, 2);
-    if(!send) download(Date.now() + '.json', text);
+    if (!send) download(Date.now() + '.json', text);
     coords = [];
     buttonPositions = [];
     raz();
     arret();
+    getBest();
 }
 
 button.addEventListener('click', (event) => {
@@ -160,7 +162,7 @@ timer.innerHTML = '0' + sec + ':' + '0' + mili;
 
 
 function chrono() {
-    setInterval(function() {
+    setInterval(function () {
         mili++;
         if (mili > 9) {
             mili = 0;
@@ -211,3 +213,24 @@ function download(filename, text) {
 
     document.body.removeChild(element);
 }
+
+let getBest = () => {
+    fetch("https://api.github.com/repos/Merlode11/TIPE/contents/results").then(res => res.json()).then(async data => {
+        // Find the best score and display it in all the results JSON files
+        let bestScore = 1000000000;
+        console.log(data)
+        for (const item of data) {
+            // Read the file content
+            let content = await fetch("./" + item.path).then(res => res.json());
+            console.log(content);
+            if (content.time < bestScore) {
+                bestScore = content.time;
+                console.log(bestScore);
+            }
+        }
+        console.log(bestScore);
+        // Display the best score in the HTML with a nice format (ss:ms)
+        best.innerHTML = Math.floor(bestScore / 1000) + ':' + Math.floor((bestScore % 1000) / 10);
+    })
+}
+getBest()

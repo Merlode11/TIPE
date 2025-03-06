@@ -15,6 +15,7 @@
   <h1>Le bouton fou</h1>
   <p>Cliquez sur le bouton pour le déplacer aléatoirement sur l'écran.</p>
   <p>Si vous utilisez un bot pour le site, merci de bien rajouter "Python Bot" dans votre User-Agent</p>
+    <p> Meilleur score : <span id="best">00:00</span></p>
   <button id="start">
     <span> Start Game </span>
   </button>
@@ -28,13 +29,23 @@
   <span>CLIQUER !!!</span>
 </button>
 
-<div id="modal" class="modal">
+<div id="modal-mobile" class="modal">
     <div class="modal-content">
         <div class="contact-form">
             <h2>ERREUR : Mobile détecté</h2>
             <p>
               Vous avez actuellement un appareil mobile. Ce jeu doit uniquement s'effectuer avec une souris.<br>
               Veuillez utiliser un ordinateur pour jouer.
+            </p>
+        </div>
+    </div>
+</div>
+<div id="modal-small" class="modal">
+    <div class="modal-content">
+        <div class="contact-form">
+            <h2>ERREUR : Écran trop petit</h2>
+            <p>
+                Votre taille d'écran est trop petite pour jouer à ce jeu. Veuillez utiliser un écran plus grand.
             </p>
         </div>
     </div>
