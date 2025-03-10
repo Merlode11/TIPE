@@ -70,20 +70,8 @@ button.addEventListener('click', (event) => {
 
     button.style.top = `${top}px`;
     button.style.left = `${left}px`;
-    /*
-    position: relative;
-    height: 50px;
-    padding: 0 30px;
-    border: 2px solid #000;
-    background: #e8e8e8;
-    user-select: none;
-    white-space: nowrap;
-    transition: all .05s linear;
-    font-family: inherit;
-     */
 
     button.style.height = '50px';
-    button.style.position = 'relative';
     button.style.padding = '0 30px';
     button.style.border = '2px solid #000';
     button.style.background = '#e8e8e8';
