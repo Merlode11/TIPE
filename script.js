@@ -238,22 +238,17 @@ function download(filename, text) {
 }
 
 let getBest = () => {
-    fetch("https://api.github.com/repos/Merlode11/TIPE/contents/results").then(res => res.json()).then(async data => {
-        // Find the best score and display it in all the results JSON files
-        let bestScore = 1000000000;
-        for (const item of data) {
-            // Read the file content
-            try {
-                let content = await fetch("./" + item.path).then(res => res.json());
-                if (content.time < bestScore && !content.bot) {
-                    bestScore = content.time;
-                }
-            } catch (e) {
-                console.error(e);
-            }
-        }
-        // Display the best score in the HTML with a nice format (ss:ms)
-        best.innerHTML = Math.floor(bestScore / 1000) + ':' + Math.floor((bestScore % 1000) / 10);
-    })
+    // Find the best score and display it in all the results JSON files
+    // Read the file content
+    try {
+        fetch("./bestScore.json").then(res => res.json()).then(content => {
+            let bestScore = content.time;
+            // Display the best score in the HTML with a nice format (ss:ms)
+            best.innerHTML = Math.floor(bestScore / 1000) + ':' + Math.floor((bestScore % 1000) / 10);
+        });
+
+    } catch (e) {
+        console.error(e);
+    }
 }
 getBest()
