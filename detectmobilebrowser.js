@@ -7,24 +7,26 @@
             a.substr(0, 4)
         )
     ) {
-      const startButton = document.getElementById('start');
-      startButton.classList.add('hidden');
-      startButton.disabled = true;
-      document.getElementById("modal-mobile").style.display = "block";
+        const startButton = document.getElementById('start');
+        startButton.classList.add('hidden');
+        startButton.disabled = true;
+        document.getElementById("modal-mobile").style.display = "block";
     }
 })(navigator.userAgent || navigator.vendor || window.opera);
 
 function isSmall(width, height) {
-    console.log(width, height);
-    if (width * height < 300000) {
-      const startButton = document.getElementById('start');
-      startButton.classList.add('hidden');
-      startButton.disabled = true;
-      document.getElementById("modal-small").style.display = "block";
+    const startButton = document.getElementById('start');
+    if (width * height < 500000) {
+        startButton.classList.add('hidden');
+        startButton.disabled = true;
+        document.getElementById("modal-small").style.display = "block";
     } else {
-      document.getElementById("modal-small").style.display = "none";
+        document.getElementById("modal-small").style.display = "none";
+        startButton.classList.remove('hidden');
+        startButton.disabled = false;
     }
 }
+
 isSmall(window.innerWidth, window.innerHeight)
 window.addEventListener('resize', () => {
     isSmall(window.innerWidth, window.innerHeight);

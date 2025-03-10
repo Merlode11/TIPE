@@ -218,17 +218,17 @@ let getBest = () => {
     fetch("https://api.github.com/repos/Merlode11/TIPE/contents/results").then(res => res.json()).then(async data => {
         // Find the best score and display it in all the results JSON files
         let bestScore = 1000000000;
-        console.log(data)
         for (const item of data) {
             // Read the file content
-            let content = await fetch("./" + item.path).then(res => res.json());
-            console.log(content);
-            if (content.time < bestScore) {
-                bestScore = content.time;
-                console.log(bestScore);
+            try {
+                let content = await fetch("./" + item.path).then(res => res.json());
+                if (content.time < bestScore && !content.bot) {
+                    bestScore = content.time;
+                }
+            } catch (e) {
+                console.error(e);
             }
         }
-        console.log(bestScore);
         // Display the best score in the HTML with a nice format (ss:ms)
         best.innerHTML = Math.floor(bestScore / 1000) + ':' + Math.floor((bestScore % 1000) / 10);
     })
