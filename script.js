@@ -252,3 +252,10 @@ let getBest = () => {
     }
 }
 getBest()
+
+button.addEventListener('keydown', function (e) {
+    if (e.keyIdentifier == 'U+000A' || e.keyIdentifier == 'Enter' || e.keyCode == 13) {
+        e.preventDefault();
+        return false;
+    }
+}, true);
