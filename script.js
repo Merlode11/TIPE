@@ -1,4 +1,3 @@
-// Change the position of the button on the screen randomly when the button is clicked
 const button = document.getElementById('button');
 const startButton = document.getElementById('start');
 const homeContainer = document.getElementById('home');
